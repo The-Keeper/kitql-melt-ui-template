@@ -1,0 +1,6 @@
+query PageCounter($id: String!) @cache(policy: CacheAndNetwork) {
+	counter(id: $id) {
+		id
+		value
+	}
+}

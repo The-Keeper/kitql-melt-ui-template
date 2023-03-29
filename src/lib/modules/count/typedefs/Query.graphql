@@ -1,0 +1,8 @@
+type Query {
+	counter(id: String!): Counter!
+}
+
+type Counter {
+	id: String!
+	value: Int!
+}
