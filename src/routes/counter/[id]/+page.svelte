@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
 	import { enhance } from '$app/forms';
 	import { page } from '$app/stores';
 	import { graphql } from '$houdini';
@@ -16,6 +17,18 @@
 			}
 		}
 	`);
+
+	const updates = graphql(`
+		subscription CounterUpdate($id: String!) {
+			counterChange(id: $id) {
+				id
+				value
+			}
+		}
+	`);
+	$: if (browser) {
+		updates.listen({ id: $page.params.id });
+	}
 </script>
 
 <a href="/">&LeftArrow; Back</a>
