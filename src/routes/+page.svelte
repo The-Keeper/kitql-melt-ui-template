@@ -7,10 +7,12 @@
 	$: ({ CurrentUser } = data);
 </script>
 
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<div class="dark:text-white">
+<h1 class="text-4xl center">Welcome to SvelteKit</h1>
+
 {#if $CurrentUser.data?.user}
 	<ShowCurrentUser user={$CurrentUser.data.user} />
 {/if}
 
-<a href="/counter/{$CurrentUser.data?.user.id}">Go to counter</a>
+	<a class="underline" href="/counter/{$CurrentUser.data?.user.id}">Go to counter</a>
+</div>

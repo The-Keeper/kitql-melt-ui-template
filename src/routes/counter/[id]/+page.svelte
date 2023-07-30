@@ -5,6 +5,9 @@
 	import { graphql } from '$houdini';
 	import type { PageData } from './$houdini';
 
+	import ThemeSwitcher from '../../../lib/components/ThemeSwitcher.svelte';
+	import Button from '$lib/components/Button.svelte';
+
 	export let data: PageData;
 
 	$: ({ PageCounter } = data);
@@ -31,17 +34,26 @@
 	}
 </script>
 
-<a href="/">&LeftArrow; Back</a>
-
-<div>
-	<h1>Count: {$PageCounter.data?.counter.value ?? 0}</h1>
-	<button on:click={() => addToCounter.mutate({ id: $page.params.id, amount: 1 })}>
-		Add (Client Only)
-	</button>
-	<form method="post">
-		<button>Add (Server Only)</button>
-	</form>
-	<form method="post" use:enhance>
-		<button>Add (Hybrid)</button>
-	</form>
+<div class="bottom-0 flex flex-col py-4 sm:flex-row sm:flex-nowrap">
+	<div class="sticky top-0 flex w-full justify-evenly p-4 sm:w-1/4 sm:flex-col">
+		<div><a href="/">&LeftArrow; Back</a></div>
+	</div>
+	<main class="w-full flex-grow px-3 pt-1">
+		<div class="grid place-items-center">
+			<div class="pb-5 text-4xl text-amber-950 dark:text-white">
+				Count: {$PageCounter.data?.counter.value ?? 0}
+			</div>
+			<div class="grid items-center justify-center gap-3 sm:flex">
+				<Button on:click={() => addToCounter.mutate({ id: $page.params.id, amount: 1 })}>
+					Add (Client Only)
+				</Button>
+				<form method="post">
+					<Button>Add (Server Only)</Button>
+				</form>
+				<form method="post" use:enhance>
+					<Button>Add (Hybrid)</Button>
+				</form>
+			</div>
+		</div>
+	</main>
 </div>
